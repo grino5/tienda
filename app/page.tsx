@@ -27,7 +27,6 @@ export default function Home() {
       setUserData(WebApp.initDataUnsafe.user as UserData);
 
       // Simular la obtención de créditos e invitaciones
-      // Aquí llamas a tu API para obtener créditos e invitaciones del usuario
       fetch(`/api/obtener-datos?user_id=${WebApp.initDataUnsafe.user.id}`)
         .then(res => res.json())
         .then(data => {
@@ -77,7 +76,8 @@ export default function Home() {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(1, 1fr)', gap: '15px', marginBottom: '15px' }}>
+      {/* Ajustamos el grid para que tenga 3 columnas */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '15px', marginBottom: '15px' }}>
         <form action="/create-checkout-session" method="POST" style={{ textAlign: 'center', padding: '15px', backgroundColor: '#2a2a2a', borderRadius: '10px' }}>
           <input type="hidden" name="plan" value="basico" />
           <img src="/static/paquete-115-mensajes.png" alt="Paquete de 20 mensajes" style={{ maxWidth: '100px', marginBottom: '10px' }} />
