@@ -33,7 +33,7 @@ export default function Home() {
 
   return (
     <main className="p-4">
-      <div>Redireccionando...</div>
+      <div></div>
     </main>
   );
 }
