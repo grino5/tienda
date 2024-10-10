@@ -50,57 +50,57 @@ export default function Home() {
   };
 
   return (
-    <main style={{ padding: '15px', fontFamily: 'Arial, sans-serif', color: '#ffffff', backgroundColor: '#1a1a1a', minHeight: '100vh' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
-        <h1 style={{ fontSize: '1.5em' }}>Tienda</h1>
-        <div style={{ backgroundColor: '#2a2a2a', padding: '10px', borderRadius: '10px' }}>
+    <main style={styles.main}>
+      <div style={styles.header}>
+        <h1 style={styles.title}>Tienda</h1>
+        <div style={styles.creditos}>
           💬 {creditos} mensajes disponibles
         </div>
       </div>
 
-      <div style={{ backgroundColor: '#2a2a2a', padding: '15px', borderRadius: '10px', marginBottom: '15px' }}>
-        <img src="/static/logo-gratis.png" alt="Mensajes gratis" style={{ width: '50px', marginRight: '10px', float: 'left' }} />
+      <div style={styles.messageBox}>
+        <img src="/static/logo-gratis.png" alt="Mensajes gratis" style={styles.image} />
         <div>
           <strong>Mensajes gratis</strong>
           <p>Agrega 3 amigos y obtén 10 mensajes gratis.</p>
           <p>Has invitado a {invitaciones}.</p>
           {invitaciones < 3 ? (
-            <button onClick={copiarLink} style={{ padding: '10px', backgroundColor: '#5183c8', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer', width: '100%' }}>
+            <button onClick={copiarLink} style={styles.button}>
               {linkCopiado ? "Link copiado" : "Copiar link de invitación"}
             </button>
           ) : (
-            <button style={{ padding: '10px', backgroundColor: '#888', color: '#fff', border: 'none', borderRadius: '5px', width: '100%' }} disabled>
+            <button style={styles.buttonDisabled} disabled>
               Ya has reclamado esta recompensa
             </button>
           )}
         </div>
       </div>
 
-      {/* Ajustamos el grid para que tenga 3 columnas */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '15px', marginBottom: '15px' }}>
-        <form action="/create-checkout-session" method="POST" style={{ textAlign: 'center', padding: '15px', backgroundColor: '#2a2a2a', borderRadius: '10px' }}>
+      {/* Usamos flexbox para mantener siempre los planes en una fila */}
+      <div style={styles.flexGrid}>
+        <form action="/create-checkout-session" method="POST" style={styles.card}>
           <input type="hidden" name="plan" value="basico" />
-          <img src="/static/paquete-115-mensajes.png" alt="Paquete de 20 mensajes" style={{ maxWidth: '100px', marginBottom: '10px' }} />
+          <img src="/static/paquete-115-mensajes.png" alt="Paquete de 20 mensajes" style={styles.cardImage} />
           <div><strong>20 Mensajes</strong> + fotos sexys</div>
-          <div style={{ color: '#fff', marginTop: '5px' }}>3.00 USD</div>
+          <div style={styles.price}>3.00 USD</div>
         </form>
 
-        <form action="/create-checkout-session" method="POST" style={{ textAlign: 'center', padding: '15px', backgroundColor: '#2a2a2a', borderRadius: '10px' }}>
+        <form action="/create-checkout-session" method="POST" style={styles.card}>
           <input type="hidden" name="plan" value="premium" />
-          <img src="/static/premium.png" alt="Mensajes infinitos" style={{ maxWidth: '100px', marginBottom: '10px' }} />
+          <img src="/static/premium.png" alt="Mensajes infinitos" style={styles.cardImage} />
           <div><strong>Mensajes infinitos</strong> + fotos xxx</div>
-          <div style={{ color: '#fff', marginTop: '5px' }}>52.00 USD/mes</div>
+          <div style={styles.price}>52.00 USD/mes</div>
         </form>
 
-        <form action="/create-checkout-session" method="POST" style={{ textAlign: 'center', padding: '15px', backgroundColor: '#2a2a2a', borderRadius: '10px' }}>
+        <form action="/create-checkout-session" method="POST" style={styles.card}>
           <input type="hidden" name="plan" value="popular" />
-          <img src="/static/paquete-115-mensajes.png" alt="Paquete de 100 mensajes" style={{ maxWidth: '100px', marginBottom: '10px' }} />
+          <img src="/static/paquete-115-mensajes.png" alt="Paquete de 100 mensajes" style={styles.cardImage} />
           <div><strong>100 Mensajes</strong> + fotos sexys</div>
-          <div style={{ color: '#fff', marginTop: '5px' }}>12.00 USD</div>
+          <div style={styles.price}>12.00 USD</div>
         </form>
       </div>
 
-      <div style={{ textAlign: 'center', color: '#888' }}>Ⓘ Todos los pagos son anónimos y seguros.</div>
+      <div style={styles.footer}>Ⓘ Todos los pagos son anónimos y seguros.</div>
     </main>
   );
 
@@ -116,3 +116,81 @@ export default function Home() {
       });
   }
 }
+
+const styles = {
+  main: {
+    padding: '15px',
+    fontFamily: 'Arial, sans-serif',
+    color: '#ffffff',
+    backgroundColor: '#1a1a1a',
+    minHeight: '100vh',
+  },
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: '15px',
+  },
+  title: {
+    fontSize: '1.5em',
+  },
+  creditos: {
+    backgroundColor: '#2a2a2a',
+    padding: '10px',
+    borderRadius: '10px',
+  },
+  messageBox: {
+    backgroundColor: '#2a2a2a',
+    padding: '15px',
+    borderRadius: '10px',
+    marginBottom: '15px',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  image: {
+    width: '50px',
+    marginRight: '10px',
+  },
+  button: {
+    padding: '10px',
+    backgroundColor: '#5183c8',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    width: '100%',
+  },
+  buttonDisabled: {
+    padding: '10px',
+    backgroundColor: '#888',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '5px',
+    width: '100%',
+  },
+  flexGrid: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: '15px',
+  },
+  card: {
+    textAlign: 'center',
+    padding: '15px',
+    backgroundColor: '#2a2a2a',
+    borderRadius: '10px',
+    flex: '1', // Las tarjetas usarán todo el espacio disponible y mantendrán el mismo tamaño
+    minWidth: '200px', // Un tamaño mínimo para evitar que se reduzcan demasiado
+  },
+  cardImage: {
+    maxWidth: '100px',
+    marginBottom: '10px',
+  },
+  price: {
+    color: '#fff',
+    marginTop: '5px',
+  },
+  footer: {
+    textAlign: 'center',
+    color: '#888',
+    marginTop: '20px',
+  }
+};
