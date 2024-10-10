@@ -34,9 +34,39 @@ export default function Home() {
           setInvitaciones(data.invitaciones);
         });
     }
+
+    // Deshabilitar el zoom
+    document.addEventListener('wheel', handleWheel, { passive: false });
+    document.addEventListener('keydown', handleKeydown);
+    document.addEventListener('contextmenu', handleContextMenu);
+    document.addEventListener('selectstart', (e) => e.preventDefault());
+    document.addEventListener('dragstart', (e) => e.preventDefault());
+
+    return () => {
+      document.removeEventListener('wheel', handleWheel);
+      document.removeEventListener('keydown', handleKeydown);
+      document.removeEventListener('contextmenu', handleContextMenu);
+      document.removeEventListener('selectstart', (e) => e.preventDefault());
+      document.removeEventListener('dragstart', (e) => e.preventDefault());
+    };
   }, []);
 
-  // Manejar copia de enlace de invitación
+  const handleWheel = (e: WheelEvent) => {
+    if (e.ctrlKey) {
+      e.preventDefault();
+    }
+  };
+
+  const handleKeydown = (e: KeyboardEvent) => {
+    if (e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '0')) {
+      e.preventDefault();
+    }
+  };
+
+  const handleContextMenu = (e: MouseEvent) => {
+    e.preventDefault();
+  };
+
   const copiarLink = () => {
     if (userData) {
       const link = `https://t.me/VanneChatBot?start=${userData.id}`;
@@ -76,7 +106,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Usamos grid para mantener siempre los planes en una fila */}
       <div style={styles.gridContainer}>
         <form action="/create-checkout-session" method="POST" style={styles.card}>
           <input type="hidden" name="plan" value="basico" />
@@ -103,18 +132,6 @@ export default function Home() {
       <div style={styles.footer}>Ⓘ Todos los pagos son anónimos y seguros.</div>
     </main>
   );
-
-  function handleCheckout(plan: string) {
-    fetch('/create-checkout-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ plan, user_id: userData?.id })
-    })
-      .then(res => res.json())
-      .then(data => {
-        window.location.href = data.url;
-      });
-  }
 }
 
 const styles = {
@@ -123,7 +140,11 @@ const styles = {
     fontFamily: 'Arial, sans-serif',
     color: '#ffffff',
     backgroundColor: '#1a1a1a',
-    minHeight: '100vh',
+    height: '100vh',  // Mantener el tamaño del contenedor al 100% del viewport
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    touchAction: 'none',  // Prevenir zoom
   },
   header: {
     display: 'flex',
@@ -167,19 +188,19 @@ const styles = {
     borderRadius: '5px',
     width: '100%',
   },
-  // Estilo del grid: 3 columnas siempre, con las tarjetas escalando según el tamaño de la pantalla
   gridContainer: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)', // Tres columnas
+    display: 'flex',
+    justifyContent: 'space-between',
     gap: '15px',
+    marginBottom: '15px',
   },
   card: {
     textAlign: 'center',
     padding: '15px',
     backgroundColor: '#2a2a2a',
     borderRadius: '10px',
-    minWidth: '0', // Permitir que las tarjetas se reduzcan cuando la pantalla sea muy estrecha
     flex: '1',
+    minWidth: '0',  // Forzar tamaño proporcional
   },
   cardImage: {
     maxWidth: '100px',
