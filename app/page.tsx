@@ -76,8 +76,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Usamos flexbox para mantener siempre los planes en una fila */}
-      <div style={styles.flexGrid}>
+      {/* Usamos grid para mantener siempre los planes en una fila */}
+      <div style={styles.gridContainer}>
         <form action="/create-checkout-session" method="POST" style={styles.card}>
           <input type="hidden" name="plan" value="basico" />
           <img src="/static/paquete-115-mensajes.png" alt="Paquete de 20 mensajes" style={styles.cardImage} />
@@ -167,9 +167,10 @@ const styles = {
     borderRadius: '5px',
     width: '100%',
   },
-  flexGrid: {
-    display: 'flex',
-    justifyContent: 'space-between',
+  // Estilo del grid: 3 columnas siempre, con las tarjetas escalando según el tamaño de la pantalla
+  gridContainer: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(3, 1fr)', // Tres columnas
     gap: '15px',
   },
   card: {
@@ -177,8 +178,8 @@ const styles = {
     padding: '15px',
     backgroundColor: '#2a2a2a',
     borderRadius: '10px',
-    flex: '1', // Las tarjetas usarán todo el espacio disponible y mantendrán el mismo tamaño
-    minWidth: '200px', // Un tamaño mínimo para evitar que se reduzcan demasiado
+    minWidth: '0', // Permitir que las tarjetas se reduzcan cuando la pantalla sea muy estrecha
+    flex: '1',
   },
   cardImage: {
     maxWidth: '100px',
