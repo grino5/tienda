@@ -51,69 +51,56 @@ export default function Home() {
   };
 
   return (
-    <main className="p-4">
-      <div className="header">
-        <h1 style={{ fontSize: '1.2em' }}>Tienda</h1>
-        <div className="currency">
+    <main style={{ padding: '15px', fontFamily: 'Arial, sans-serif', color: '#ffffff', backgroundColor: '#1a1a1a', minHeight: '100vh' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
+        <h1 style={{ fontSize: '1.5em' }}>Tienda</h1>
+        <div style={{ backgroundColor: '#2a2a2a', padding: '10px', borderRadius: '10px' }}>
           💬 {creditos} mensajes disponibles
         </div>
       </div>
 
-      <div className="message-box">
-        <img src="/static/logo-gratis.png" alt="Mensajes gratis" className="premium-image" />
-        <div className="message-content">
-          <div className="message-title">Mensajes gratis</div>
-          <div className="message-description">
-            Agrega 3 amigos y obtén 10 mensajes gratis.
-            <div className="divider"></div>
-            Has invitado a {invitaciones}.
-          </div>
+      <div style={{ backgroundColor: '#2a2a2a', padding: '15px', borderRadius: '10px', marginBottom: '15px' }}>
+        <img src="/static/logo-gratis.png" alt="Mensajes gratis" style={{ width: '50px', marginRight: '10px', float: 'left' }} />
+        <div>
+          <strong>Mensajes gratis</strong>
+          <p>Agrega 3 amigos y obtén 10 mensajes gratis.</p>
+          <p>Has invitado a {invitaciones}.</p>
           {invitaciones < 3 ? (
-            <button className="premium-button" onClick={copiarLink}>
+            <button onClick={copiarLink} style={{ padding: '10px', backgroundColor: '#5183c8', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer', width: '100%' }}>
               {linkCopiado ? "Link copiado" : "Copiar link de invitación"}
             </button>
           ) : (
-            <button className="premium-button" disabled>
+            <button style={{ padding: '10px', backgroundColor: '#888', color: '#fff', border: 'none', borderRadius: '5px', width: '100%' }} disabled>
               Ya has reclamado esta recompensa
             </button>
           )}
         </div>
       </div>
 
-      <div className="message-grid">
-        {/* Planes de pago */}
-        <form action="/create-checkout-session" method="POST">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(1, 1fr)', gap: '15px', marginBottom: '15px' }}>
+        <form action="/create-checkout-session" method="POST" style={{ textAlign: 'center', padding: '15px', backgroundColor: '#2a2a2a', borderRadius: '10px' }}>
           <input type="hidden" name="plan" value="basico" />
-          <div className="message-item basico-package" onClick={() => handleCheckout("basico")}>
-            <span className="label">Básico</span>
-            <img src="/static/paquete-115-mensajes.png" alt="Paquete de 20 mensajes" />
-            <div className="message-amount">20 Mensajes<br />+<br />fotos sexys</div>
-            <div className="message-price basico">3.00<br />USD</div>
-          </div>
+          <img src="/static/paquete-115-mensajes.png" alt="Paquete de 20 mensajes" style={{ maxWidth: '100px', marginBottom: '10px' }} />
+          <div><strong>20 Mensajes</strong> + fotos sexys</div>
+          <div style={{ color: '#fff', marginTop: '5px' }}>3.00 USD</div>
         </form>
-        <form action="/create-checkout-session" method="POST">
+
+        <form action="/create-checkout-session" method="POST" style={{ textAlign: 'center', padding: '15px', backgroundColor: '#2a2a2a', borderRadius: '10px' }}>
           <input type="hidden" name="plan" value="premium" />
-          <div className="message-item premium-package" onClick={() => handleCheckout("premium")}>
-            <span className="label">Premium</span>
-            <img src="/static/premium.png" alt="Mensajes infinitos" />
-            <div className="message-amount">Mensajes infinitos<br />+<br />fotos xxx</div>
-            <div className="message-price premium">52.00<br />USD/mes</div>
-          </div>
+          <img src="/static/premium.png" alt="Mensajes infinitos" style={{ maxWidth: '100px', marginBottom: '10px' }} />
+          <div><strong>Mensajes infinitos</strong> + fotos xxx</div>
+          <div style={{ color: '#fff', marginTop: '5px' }}>52.00 USD/mes</div>
         </form>
-        <form action="/create-checkout-session" method="POST">
+
+        <form action="/create-checkout-session" method="POST" style={{ textAlign: 'center', padding: '15px', backgroundColor: '#2a2a2a', borderRadius: '10px' }}>
           <input type="hidden" name="plan" value="popular" />
-          <div className="message-item popular-package" onClick={() => handleCheckout("popular")}>
-            <span className="label">Popular</span>
-            <img src="/static/paquete-115-mensajes.png" alt="Paquete de 100 mensajes" />
-            <div className="message-amount">100 Mensajes<br />+<br />fotos sexys</div>
-            <div className="message-price popular">12.00<br />USD</div>
-          </div>
+          <img src="/static/paquete-115-mensajes.png" alt="Paquete de 100 mensajes" style={{ maxWidth: '100px', marginBottom: '10px' }} />
+          <div><strong>100 Mensajes</strong> + fotos sexys</div>
+          <div style={{ color: '#fff', marginTop: '5px' }}>12.00 USD</div>
         </form>
       </div>
 
-      <div className="info-message">
-        Ⓘ Todos los pagos son anónimos y seguros.
-      </div>
+      <div style={{ textAlign: 'center', color: '#888' }}>Ⓘ Todos los pagos son anónimos y seguros.</div>
     </main>
   );
 
